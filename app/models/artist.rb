@@ -1,14 +1,14 @@
 class Artist < ApplicationRecord
-  has_many :songs
-  has_many :downloads
-  has_many :download_songs, through: :downloads
+  has_many :songs, dependent: :destroy
+  has_many :downloads, dependent: :destroy
+  has_many :download_songs, through: :downloads # , foreign_key: 'song_id'
 
   def songs
     Song.all.where(artist_id: id).order(:title)
   end
 
   def songs_top
-    Song.all.where(artist_id: id).order(download_count: :desc)
+    Song.all.where(artist_id: id).order(downloads_count: :desc)
   end
 
   def total
