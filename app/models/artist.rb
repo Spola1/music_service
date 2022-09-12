@@ -1,7 +1,7 @@
 class Artist < ApplicationRecord
   has_many :songs
   has_many :downloads
-  has_many :download_songs, through: :downloads, foreign_key: 'song_id'
+  has_many :download_songs, through: :downloads
 
   def songs
     Song.all.where(artist_id: id).order(:title)
